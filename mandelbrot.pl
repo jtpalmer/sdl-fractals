@@ -21,7 +21,9 @@ my $app = SDLx::App->new(
 );
 
 my $format = $app->surface->format;
-my @palette = map { SDL::Video::map_RGB( $format, $_, $_, $_ ) } 0 .. 255;
+my @palette
+    = map { SDL::Video::map_RGB( $format, $_, $_, $_ ) } reverse 0 .. 255;
+$palette[0] = SDL::Video::map_RGB( $format, 0, 0, 0 );
 
 foreach my $y ( 0 .. $height - 1 ) {
 	foreach my $x ( 0 .. $width - 1 ) {

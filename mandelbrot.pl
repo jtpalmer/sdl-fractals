@@ -18,6 +18,7 @@ my $app = SDLx::App->new(
     title  => $title,
     width  => $width,
     height => $height,
+    depth  => 32,
 );
 
 my $format = $app->surface->format;

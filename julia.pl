@@ -30,21 +30,23 @@ my @palette
     = map { SDL::Video::map_RGB( $format, $_, $_, $_ ) } reverse 0 .. 255;
 $palette[0] = SDL::Video::map_RGB( $format, 0, 0, 0 );
 
-foreach my $y ( 0 .. $height - 1 ) {
+my $y = 0;
+
+$app->add_show_handler(sub {
+    return if $y >= $height;
     foreach my $x ( 0 .. $width - 1 ) {
         my $v = Math::Fractal::Julia->point( $x, $height - $y - 1 );
         $app->[$x][$y] = $palette[$v];
     }
     $app->update;
-}
-$app->update;
+    $y++;
+});
 
 $app->add_event_handler(
     sub {
         my ($event) = @_;
-        return 0 if $event->type == SDL_QUIT;
-        return 0 if $event->key_sym == SDLK_ESCAPE;
-        return 1;
+        $app->stop if $event->type == SDL_QUIT;
+        $app->stop if $event->key_sym == SDLK_ESCAPE;
     }
 );
 

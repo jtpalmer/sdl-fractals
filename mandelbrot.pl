@@ -7,11 +7,12 @@ use SDLx::App;
 use Math::Fractal::Mandelbrot;
 
 my $title  = 'Mandelbrot Fractal';
-my $width  = 640;
-my $height = 480;
+my $width  = 1024;
+my $height = 768;
 my $view   = [ -2, -1, 1, 1 ];       # [ min_x, $min_y, $max_x, $max_y]
 
 Math::Fractal::Mandelbrot->set_max_iter(255);
+Math::Fractal::Mandelbrot->set_limit(4);
 Math::Fractal::Mandelbrot->set_bounds( @$view, $width, $height );
 
 my $app = SDLx::App->new(

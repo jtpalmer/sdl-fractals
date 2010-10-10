@@ -38,9 +38,8 @@ $app->update;
 $app->add_event_handler(
     sub {
         my ($event) = @_;
-        return 0 if $event->type == SDL_QUIT;
-        return 0 if $event->key_sym == SDLK_ESCAPE;
-        return 1;
+        $app->stop if $event->type == SDL_QUIT;
+        $app->stop if $event->key_sym == SDLK_ESCAPE;
     }
 );
 

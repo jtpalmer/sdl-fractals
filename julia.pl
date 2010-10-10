@@ -32,15 +32,17 @@ $palette[0] = SDL::Video::map_RGB( $format, 0, 0, 0 );
 
 my $y = 0;
 
-$app->add_show_handler(sub {
-    return if $y >= $height;
-    foreach my $x ( 0 .. $width - 1 ) {
-        my $v = Math::Fractal::Julia->point( $x, $height - $y - 1 );
-        $app->[$x][$y] = $palette[$v];
+$app->add_show_handler(
+    sub {
+        return if $y >= $height;
+        foreach my $x ( 0 .. $width - 1 ) {
+            my $v = Math::Fractal::Julia->point( $x, $height - $y - 1 );
+            $app->[$x][$y] = $palette[$v];
+        }
+        $app->update;
+        $y++;
     }
-    $app->update;
-    $y++;
-});
+);
 
 $app->add_event_handler(
     sub {
